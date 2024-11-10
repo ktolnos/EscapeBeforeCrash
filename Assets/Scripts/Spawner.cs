@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Unity.Mathematics;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Spawner: MonoBehaviour
 {
@@ -34,6 +36,10 @@ public class Spawner: MonoBehaviour
         {
             _timer = 0;
             var spawnPosition = origin.position;
+            var randomOffset = Random.Range(-xOffset, xOffset);
+            if(Mathf.Abs(randomOffset)<3){
+                return;
+            }
             spawnPosition.x += Random.Range(-xOffset, xOffset);
             var spawned = Instantiate(prefab, spawnPosition, Quaternion.identity, parent);
             spawned.GetComponent<Rigidbody>().linearVelocity = new Vector3(0, 0, player.rb.linearVelocity.z + speedIncrease);
