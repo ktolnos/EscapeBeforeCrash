@@ -23,7 +23,7 @@ public class Spawner: MonoBehaviour
             spawnPosition.x += Random.Range(-xOffset, xOffset);
             spawnPosition.z += Random.Range(0, initialOffsetZ);
             var spawned = Instantiate(prefab, spawnPosition, Quaternion.identity, parent);
-            spawned.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, initialSpeed);
+            spawned.GetComponent<Rigidbody>().linearVelocity = new Vector3(0, 0, initialSpeed);
         }
     }
     
@@ -36,7 +36,7 @@ public class Spawner: MonoBehaviour
             var spawnPosition = origin.position;
             spawnPosition.x += Random.Range(-xOffset, xOffset);
             var spawned = Instantiate(prefab, spawnPosition, Quaternion.identity, parent);
-            spawned.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, player.rb.velocity.z + speedIncrease);
+            spawned.GetComponent<Rigidbody>().linearVelocity = new Vector3(0, 0, player.rb.linearVelocity.z + speedIncrease);
         }
     }
         

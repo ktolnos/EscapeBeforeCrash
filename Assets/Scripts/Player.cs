@@ -38,7 +38,7 @@ public class Player: MonoBehaviour
             
         }
 
-        var speed = rb.velocity.magnitude;
+        var speed = rb.linearVelocity.magnitude;
         speedText.text = $"{speed * 10:0} km/h";
         if (speed <= this.car.minSpeed)
         {

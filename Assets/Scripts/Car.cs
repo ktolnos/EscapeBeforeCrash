@@ -25,7 +25,7 @@ public class Car: MonoBehaviour
     public void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.velocity = new Vector3(0, 0, Mathf.Max(rb.velocity.z, minSpeed));
+        rb.linearVelocity = new Vector3(0, 0, Mathf.Max(rb.linearVelocity.z, minSpeed));
         _outline = GetComponent<Outline>();
         StartCoroutine(Unhighlight());
     }
@@ -74,13 +74,13 @@ public class Car: MonoBehaviour
         rearLeftWheelCollider.wheelCollider.motorTorque = torque;
         rearRightWheelCollider.wheelCollider.motorTorque = torque;
         
-        if (rb.velocity.magnitude <= minSpeed && _destroyCarEnumerator == null)
+        if (rb.linearVelocity.magnitude <= minSpeed && _destroyCarEnumerator == null)
         {
             _destroyCarEnumerator = DestroyCar();
             StartCoroutine(_destroyCarEnumerator);
             fire.SetActive(true);
         }
-        else if (_destroyCarEnumerator != null && rb.velocity.magnitude > minSpeed)
+        else if (_destroyCarEnumerator != null && rb.linearVelocity.magnitude > minSpeed)
         {
             StopCoroutine(_destroyCarEnumerator);
             _destroyCarEnumerator = null;
@@ -152,7 +152,7 @@ public class Car: MonoBehaviour
             {
                 _player.transform.position = Vector3.MoveTowards(
                     _player.transform.position, seat.position, (20f
-                                                                + rb.velocity.magnitude) * Time.deltaTime);
+                                                                + rb.linearVelocity.magnitude) * Time.deltaTime);
                 if (_player.transform.position == seat.position)
                 {
                     _player.transform.parent = seat;
