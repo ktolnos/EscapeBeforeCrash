@@ -7,7 +7,6 @@ public class Booster: MonoBehaviour
         if(other.gameObject.layer == LayerMask.NameToLayer("Car")){
             var carRB = other.GetComponentInParent<Rigidbody>();
             carRB.AddForce(transform.forward * power);
-            Debug.Log("boosted");   
         }
     }
 }
