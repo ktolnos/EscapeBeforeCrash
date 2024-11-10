@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Obstacles")){
             other.gameObject.GetComponent<Destroyable>().Destroy();
-            Debug.Log("Bullet hit " + other.gameObject.name);
         }
+        Destroy(gameObject);
     }
 }
