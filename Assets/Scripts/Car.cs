@@ -4,13 +4,20 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Random = UnityEngine.Random;
+
+
+public enum vehicleType{
+    Gun,
+    Shahid
+}
+
 public class Car: MonoBehaviour
 {
     public Wheel frontLeftWheelCollider, frontRightWheelCollider, rearLeftWheelCollider, rearRightWheelCollider;
     public float torque = 1000f;
     public float randomTorque = 100f;
     public Transform seat;
+    public vehicleType type;
     private const int NRaycasts = 10;
     private const float RaycastAngleMax = 30f;
     public Rigidbody rb;
@@ -19,6 +26,7 @@ public class Car: MonoBehaviour
     private Player _player;
     private Outline _outline;
     private int _framesSinceHighlighted;
+    private bool actionUsed = false;
     public float secondsBeforeDestroy = 2f;
     public GameObject fire;
     public GameObject explosion;
@@ -76,7 +84,7 @@ public class Car: MonoBehaviour
         //     var direction = Quaternion.Euler(0, angle, 0) * transform.forward;
         //   
         //     if (Physics.Raycast(transform.position, direction, out var hit, 20f, 
-        //             LayerMask.GetMask("Default")))
+        //             LayerMask.GetMask("Obstacles")))
         //     {
         //         if (hit.distance > furhtestDistance)
         //         {
@@ -164,6 +172,16 @@ public class Car: MonoBehaviour
         _outline.enabled = true;
         _framesSinceHighlighted = 0;
     }
+    public void Action(){
+        if(actionUsed){
+            return;
+        }
+        if (type == vehicleType.Gun){
+           GetComponentInChildren<Gun>().Shoot();
+        }
+        actionUsed = true;
+    }
+
     
     private IEnumerator Unhighlight()
     {

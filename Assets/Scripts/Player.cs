@@ -21,6 +21,9 @@ public class Player: MonoBehaviour
         {
             return;
         }
+        if (Input.GetMouseButtonDown(1)){
+            this.car.Action();
+        }
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if ((Physics.Raycast(ray, out var hit, 100f, LayerMask.GetMask("Car"))
               || Physics.Raycast(ray, out hit, 100f, LayerMask.GetMask("CarSelect")))
@@ -28,7 +31,7 @@ public class Player: MonoBehaviour
             && Vector3.Distance(car.transform.position, transform.position) < radius)
         {
             car.Highlight();
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 this.car.Leave();
                 this.car = car;
