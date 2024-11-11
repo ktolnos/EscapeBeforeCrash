@@ -9894,14 +9894,17 @@ MonoBehaviour:
   frontRightWheelCollider: {fileID: 3554746513067293043}
   rearLeftWheelCollider: {fileID: 6834105711246395765}
   rearRightWheelCollider: {fileID: 4278365186602069917}
-  torque: 1000
+  torque: 600
   randomTorque: 100
   seat: {fileID: 8176135356469453251}
   rb: {fileID: 0}
-  minSpeed: 10
+  minSpeed: 5
   secondsBeforeDestroy: 2
   fire: {fileID: 2576123305441321687}
   explosion: {fileID: 7011540988894241787}
+  debugSphere: {fileID: 0}
+  maxCameraDistance: 200
+  splineT: 0
 --- !u!114 &452763369560871262
 MonoBehaviour:
   m_ObjectHideFlags: 0

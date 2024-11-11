@@ -1,4 +1,5 @@
-﻿using Unity.Mathematics;
+﻿using System;
+using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -15,7 +16,13 @@ public class Spawner: MonoBehaviour
     public float initialSpeed = 5f;
     public float speedIncrease = 5f;
     public Player player;
-    
+    public float distanceFromCamera;
+
+    public void Awake()
+    {
+        Car.CarCount = 0;
+    }
+
     private void Start()
     {
         // Time.timeScale = 0.5f;
@@ -32,18 +39,25 @@ public class Spawner: MonoBehaviour
     public void Update()
     {
         _timer += Time.deltaTime;
-        if (_timer >= freqency)
+        if (_timer >= freqency && Car.CarCount < Car.MaxCars)
         {
             _timer = 0;
-            var spawnPosition = origin.position;
+            var spawnT = CameraController.Instance.splineT +
+                         distanceFromCamera / CameraController.Instance.mainSpline.CalculateLength();
+            Vector3 spawnPosition = CameraController.Instance.mainSpline.EvaluatePosition(spawnT);
+            var tangent = CameraController.Instance.mainSpline.EvaluateTangent(spawnT);
+            Quaternion rotation = Quaternion.LookRotation(tangent);
             var randomOffset = Random.Range(-xOffset, xOffset);
             if(Mathf.Abs(randomOffset)<3){
                 return;
             }
-            spawnPosition.x += Random.Range(-xOffset, xOffset);
-            var spawned = Instantiate(prefab, spawnPosition, Quaternion.identity, parent);
-            spawned.GetComponent<Rigidbody>().linearVelocity = new Vector3(0, 0, player.rb.linearVelocity.z + speedIncrease);
+
+            spawnPosition += CameraController.Instance.transform.right * randomOffset;
+            var spawned = Instantiate(prefab, spawnPosition, rotation, parent);
+            spawned.GetComponent<Rigidbody>().linearVelocity =
+                spawned.transform.forward * (player.car.rb.linearVelocity.magnitude + speedIncrease);
+            spawned.GetComponent<Car>().splineT = spawnT;
+            
         }
     }
-        
 }
