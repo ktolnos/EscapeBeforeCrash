@@ -40,12 +40,15 @@ public class Spawner: MonoBehaviour
         _timer += Time.deltaTime;
         if (_timer >= freqency && Car.CarCount <= Car.MaxCars)
         {
-            _timer = 0;
-            SpawnCar(distanceFromCamera, Mathf.Max(player.car.rb.linearVelocity.magnitude, initialSpeed) + speedIncrease);
+            if (SpawnCar(distanceFromCamera,
+                    Mathf.Max(player.car.rb.linearVelocity.magnitude, initialSpeed) + speedIncrease))
+            {
+                _timer = 0;
+            }
         }
     }
     
-    private void SpawnCar(float distanceFromCameraLocal, float speed)
+    private bool SpawnCar(float distanceFromCameraLocal, float speed)
     {
         var spawnT = CameraController.Instance.splineT +
                      distanceFromCameraLocal / CameraController.Instance.nativeSpline.GetLength();
@@ -57,14 +60,15 @@ public class Spawner: MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(tangent);
         var randomOffset = Random.Range(-xOffset, xOffset);
         spawnPosition += Quaternion.Euler(0, 90, 0) * tangent * randomOffset;
-        if ((spawnPosition - Player.Instance.transform.position).sqrMagnitude < 10f ||
-            (spawnPosition + tangent * distanceFromCameraLocal - Player.Instance.transform.position).sqrMagnitude < 10f)
+        if (Physics.Raycast(spawnPosition, tangent , out var hit, 
+                30f, LayerMask.GetMask("CarSelect", "Car", "Obstacles")))
         {
-            return;
+            return false;
         }
         var spawned = Instantiate(prefab, spawnPosition, rotation, parent);
         spawned.GetComponent<Rigidbody>().linearVelocity =
             spawned.transform.forward * speed;
         spawned.GetComponent<Car>().splineT = spawnT;
+        return true;
     }
 }

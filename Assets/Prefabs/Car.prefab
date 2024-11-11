@@ -5160,8 +5160,9 @@ MonoBehaviour:
   frontRightWheelCollider: {fileID: 3554746513067293043}
   rearLeftWheelCollider: {fileID: 6834105711246395765}
   rearRightWheelCollider: {fileID: 4278365186602069917}
-  torque: 600
-  randomTorque: 100
+  torque: 1500
+  randomTorque: 1000
+  maxSteerAngle: 30
   seat: {fileID: 8176135356469453251}
   type: 0
   rb: {fileID: 0}

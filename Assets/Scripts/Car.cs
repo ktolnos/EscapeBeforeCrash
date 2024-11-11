@@ -49,6 +49,7 @@ public class Car: MonoBehaviour
         _outline = GetComponent<Outline>();
         StartCoroutine(Unhighlight());
         CarCount++;
+        torque = UnityEngine.Random.Range(torque - randomTorque, torque + randomTorque);
     }
 
     public void Update()

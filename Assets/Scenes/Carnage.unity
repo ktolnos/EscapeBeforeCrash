@@ -2292,7 +2292,7 @@ MonoBehaviour:
   prefab: {fileID: 7552817236936439721, guid: f19cd0d7c93a92443ba53726c6c051b4, type: 3}
   parent: {fileID: 391534821}
   origin: {fileID: 579105980}
-  freqency: 0.4
+  freqency: 0.2
   xOffset: 5
   initialOffsetZ: 225
   initialCars: 25
