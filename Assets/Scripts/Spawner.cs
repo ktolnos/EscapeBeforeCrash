@@ -1,5 +1,7 @@
-﻿using Unity.Mathematics;
+﻿using System;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Splines;
 using Random = UnityEngine.Random;
 
 public class Spawner: MonoBehaviour
@@ -15,35 +17,54 @@ public class Spawner: MonoBehaviour
     public float initialSpeed = 5f;
     public float speedIncrease = 5f;
     public Player player;
+    public float distanceFromCamera;
     
-    private void Start()
+    private bool isFirstUpdate = true;
+
+    public void Awake()
     {
-        // Time.timeScale = 0.5f;
-        for (int i = 0; i < initialCars; i++)
-        {
-            var spawnPosition = origin.position;
-            spawnPosition.x += Random.Range(-xOffset, xOffset);
-            spawnPosition.z += Random.Range(0, initialOffsetZ);
-            var spawned = Instantiate(prefab, spawnPosition, Quaternion.identity, parent);
-            spawned.GetComponent<Rigidbody>().linearVelocity = new Vector3(0, 0, initialSpeed);
-        }
+        Car.CarCount = 0;
     }
     
     public void Update()
     {
+        if (isFirstUpdate)
+        {
+            isFirstUpdate = false;
+            for (int i = 0; i < initialCars; i++)
+            {
+                SpawnCar(Random.Range(0, initialOffsetZ), initialSpeed);
+            }
+            return;
+        }
         _timer += Time.deltaTime;
-        if (_timer >= freqency)
+        if (_timer >= freqency && Car.CarCount <= Car.MaxCars)
         {
             _timer = 0;
-            var spawnPosition = origin.position;
-            var randomOffset = Random.Range(-xOffset, xOffset);
-            if(Mathf.Abs(randomOffset)<3){
-                return;
-            }
-            spawnPosition.x += Random.Range(-xOffset, xOffset);
-            var spawned = Instantiate(prefab, spawnPosition, Quaternion.identity, parent);
-            spawned.GetComponent<Rigidbody>().linearVelocity = new Vector3(0, 0, player.rb.linearVelocity.z + speedIncrease);
+            SpawnCar(distanceFromCamera, Mathf.Max(player.car.rb.linearVelocity.magnitude, initialSpeed) + speedIncrease);
         }
     }
+    
+    private void SpawnCar(float distanceFromCameraLocal, float speed)
+    {
+        var spawnT = CameraController.Instance.splineT +
+                     distanceFromCameraLocal / CameraController.Instance.nativeSpline.GetLength();
+        Vector3 spawnPosition = CameraController.Instance.nativeSpline.EvaluatePosition(spawnT);
+        spawnPosition = CameraController.Instance.mainSpline.transform.TransformPoint(spawnPosition);
+        Vector3 tangent = CameraController.Instance.nativeSpline.EvaluateTangent(spawnT);
+        tangent = tangent.normalized;
         
+        Quaternion rotation = Quaternion.LookRotation(tangent);
+        var randomOffset = Random.Range(-xOffset, xOffset);
+        spawnPosition += Quaternion.Euler(0, 90, 0) * tangent * randomOffset;
+        if ((spawnPosition - Player.Instance.transform.position).sqrMagnitude < 10f ||
+            (spawnPosition + tangent * distanceFromCameraLocal - Player.Instance.transform.position).sqrMagnitude < 10f)
+        {
+            return;
+        }
+        var spawned = Instantiate(prefab, spawnPosition, rotation, parent);
+        spawned.GetComponent<Rigidbody>().linearVelocity =
+            spawned.transform.forward * speed;
+        spawned.GetComponent<Car>().splineT = spawnT;
+    }
 }

@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class Player: MonoBehaviour
 {
-    public Rigidbody rb;
     public Car car;
     public float radius = 20f;
     public TextMeshProUGUI speedText;
     public bool gameEnded;
+    public static Player Instance;
+    
+    public void Awake()
+    {
+        Instance = this;
+    }
     
     public void Start()
     {
@@ -45,7 +50,7 @@ public class Player: MonoBehaviour
             
         }
 
-        var speed = rb.linearVelocity.magnitude;
+        var speed = this.car.rb.linearVelocity.magnitude;
         speedText.text = $"{speed * 10:0} km/h";
         if (speed <= this.car.minSpeed)
         {
