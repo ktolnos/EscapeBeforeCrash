@@ -25,6 +25,10 @@ public class Player: MonoBehaviour
         if (Input.GetMouseButtonDown(1)){
             this.car.Action();
         }
+        if (Input.GetButton("Horizontal"))
+        {
+            this.car.TurnCar(10f * Input.GetAxis("Horizontal"));
+        }
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if ((Physics.Raycast(ray, out var hit, 100f, LayerMask.GetMask("Car"))
               || Physics.Raycast(ray, out hit, 100f, LayerMask.GetMask("CarSelect")))

@@ -146,6 +146,11 @@ public class Car: MonoBehaviour
         }
         actionUsed = true;
     }
+    public void TurnCar(float direction)
+    {
+        this.frontLeftWheelCollider.wheelCollider.steerAngle = direction;
+        this.frontRightWheelCollider.wheelCollider.steerAngle = direction;
+    }
 
     
     private IEnumerator Unhighlight()
