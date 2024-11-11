@@ -8,6 +8,12 @@ public class Player: MonoBehaviour
     public float radius = 20f;
     public TextMeshProUGUI speedText;
     public bool gameEnded;
+    public static Player Instance;
+    
+    public void Awake()
+    {
+        Instance = this;
+    }
     
     public void Start()
     {

@@ -18,11 +18,11 @@ public class Utils
         out float t,
         float lastT,
         int resolution = SplineUtility.PickResolutionDefault,
-        int iterations = 2) where T : ISpline
+        int iterations = 3) where T : ISpline
     {
         float distance = float.PositiveInfinity;
         nearest = float.PositiveInfinity;
-        Segment segment = new Segment(lastT, 0.001f);
+        Segment segment = new Segment(lastT, 0.01f);
         t = 0f;
 
         for (int i = 0, c = iterations; i < c; i++)

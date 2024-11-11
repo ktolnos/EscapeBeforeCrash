@@ -5172,6 +5172,8 @@ MonoBehaviour:
   debugSphere: {fileID: 0}
   maxCameraDistance: 200
   splineT: 0
+  behindCameraSpeedup: 10000
+  isBehindCamera: 0
 --- !u!114 &452763369560871262
 MonoBehaviour:
   m_ObjectHideFlags: 0

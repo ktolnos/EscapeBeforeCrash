@@ -16,9 +16,11 @@ public class Car: MonoBehaviour
     public Wheel frontLeftWheelCollider, frontRightWheelCollider, rearLeftWheelCollider, rearRightWheelCollider;
     public float torque = 1000f;
     public float randomTorque = 100f;
+    public float maxSteerAngle = 30f;
     public Transform seat;
     public vehicleType type;
-    private const int NRaycasts = 10;
+    private const int NRaycasts = 4;
+    private const float RaycastLength = 40;
     private const float RaycastAngleMax = 30f;
     public Rigidbody rb;
     private IEnumerator _destroyCarEnumerator;
@@ -34,14 +36,16 @@ public class Car: MonoBehaviour
     public static int CarCount = 0;
     public static int MaxCars = 50;
     public float maxCameraDistance = 100f;
-    public static float minCarT = 1f;
-    public static GameObject lastCar;
     public float splineT;
+    public float behindCameraSpeedup = 5000f;
+    private float _boostCooldown = 1f;
+    public bool isBehindCamera;
+    private static int _carsDestroyedThisFrame = 0;
     
     public void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        rb.linearVelocity = new Vector3(0, 0, Mathf.Max(rb.linearVelocity.z, minSpeed));
+        rb.linearVelocity = transform.forward * (minSpeed + 10f);
         _outline = GetComponent<Outline>();
         StartCoroutine(Unhighlight());
         CarCount++;
@@ -49,56 +53,76 @@ public class Car: MonoBehaviour
 
     public void Update()
     {
-        Utils.GetNearestPointAndT(transform.position, splineT,
+        Utils.GetNearestPointAndT(transform.position + transform.forward * 6, splineT,
             out splineT, out var tangent);
         if ((transform.position - CameraController.Instance.transform.position).magnitude > maxCameraDistance)
         {
             Destroy(gameObject);
+            _carsDestroyedThisFrame++;
         }
-        //Debug.Log(CarCount + " " + splineT + " " + minCarT + " " + (lastCar == this));
 
-        if (splineT < minCarT && _player == null && splineT < CameraController.Instance.splineT)
+        isBehindCamera = splineT <
+                             CameraController.Instance.splineT -
+                             15f / CameraController.Instance.nativeSpline.GetLength();
+
+        if (isBehindCamera &&
+            rb.linearVelocity.sqrMagnitude < Player.Instance.car.rb.linearVelocity.sqrMagnitude &&
+            CarCount - _carsDestroyedThisFrame >= MaxCars-1)
         {
-            // Debug.Log("Setting last car");
-            lastCar = gameObject;
-            minCarT = splineT;
+            Destroy(gameObject);
+            _carsDestroyedThisFrame++;
+            return;
         }
 
-        // if (debugSphere != null)
-        // {
-        //     debugSphere.position = nearestPoint;
-        //     debugSphere.forward = tangent;
-        // }
+        if (isBehindCamera && _boostCooldown > 0)
+        {
+            _boostCooldown -= Time.deltaTime;
+        }
+        else if (isBehindCamera && _boostCooldown <= 0)
+        {
+            _boostCooldown = 1f;
+            rb.AddForce(transform.forward * behindCameraSpeedup, ForceMode.Impulse);
+        }
         
         float trackAngle = Quaternion.FromToRotation(transform.forward, tangent).eulerAngles.y;
         var furthestAngle = trackAngle;
-        // var furhtestDistance = 0f;
-        // for (int i = -1; i < NRaycasts; i++)
-        // {
-        //     // iterate over angles starting from center and going to the sides
-        //     var angle = trackAngle + i % 2 == 0 ? i * RaycastAngleMax / NRaycasts / 2 : -i * RaycastAngleMax / NRaycasts / 2;
-        //     if (i == -1)
-        //     {
-        //         angle = 0;
-        //     }
-        //     var direction = Quaternion.Euler(0, angle, 0) * transform.forward;
-        //   
-        //     if (Physics.Raycast(transform.position, direction, out var hit, 20f, 
-        //             LayerMask.GetMask("Obstacles")))
-        //     {
-        //         if (hit.distance > furhtestDistance)
-        //         {
-        //             furhtestDistance = hit.distance;
-        //             furthestAngle = angle;
-        //         }
-        //     }
-        //     else if (!float.IsPositiveInfinity(furhtestDistance))
-        //     {
-        //         furhtestDistance = float.PositiveInfinity;
-        //         furthestAngle = angle;
-        //     }
-        // }
+        var furhtestDistance = 0f;
+        for (int i = -1; i < NRaycasts; i++)
+        {
+            // iterate over angles starting from center and going to the sides
+            var angle = trackAngle + (i % 2 == 0 ? i * RaycastAngleMax / NRaycasts : -(i-1) * RaycastAngleMax / NRaycasts);
+            if (i == -1)
+            {
+                angle = trackAngle;
+            }
+            var direction = Quaternion.Euler(0, angle, 0) * transform.forward;
+
+            var totalDistance = RaycastLength * 2f;
+            if (Physics.Raycast(frontLeftWheelCollider.transform.position, direction, out var hit, RaycastLength, 
+                    LayerMask.GetMask("Obstacles")))
+            {
+                totalDistance = hit.distance;
+                Debug.DrawRay(frontLeftWheelCollider.transform.position, direction * RaycastLength, Color.red);
+            }
+            
+            if (Physics.Raycast(frontRightWheelCollider.transform.position, direction, out hit, RaycastLength, 
+                LayerMask.GetMask("Obstacles")))
+            {
+                totalDistance = Mathf.Min(totalDistance, hit.distance);
+                Debug.DrawRay(frontRightWheelCollider.transform.position, direction * RaycastLength, Color.red);
+            }
+            
+            if (totalDistance > furhtestDistance)
+            {
+                furhtestDistance = totalDistance;
+                furthestAngle = angle;
+                Debug.DrawRay(frontRightWheelCollider.transform.position, direction * RaycastLength, Color.green);
+            }
+        }
         float steerAngle = furthestAngle;
+        steerAngle = (steerAngle + 3600f) % 360f;
+        steerAngle = steerAngle > 180f ? steerAngle - 360f : steerAngle;
+        steerAngle = Mathf.Clamp(steerAngle, -maxSteerAngle, maxSteerAngle);
         
         frontLeftWheelCollider.wheelCollider.steerAngle = steerAngle;
         frontRightWheelCollider.wheelCollider.steerAngle = steerAngle;
@@ -124,12 +148,7 @@ public class Car: MonoBehaviour
 
     private void LateUpdate()
     {
-        minCarT = 1f;
-        if (CarCount > MaxCars && lastCar != null)
-        {
-            Destroy(lastCar);
-            lastCar = null;
-        }
+        _carsDestroyedThisFrame = 0;
     }
 
     private IEnumerator DestroyCar()

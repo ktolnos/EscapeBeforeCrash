@@ -16,6 +16,8 @@ public class CameraController : MonoBehaviour
     void OnEnable()
     {
         nativeSpline = new NativeSpline(mainSpline.Spline, Unity.Collections.Allocator.Persistent);
+        Vector3 localSplinePoint = mainSpline.transform.InverseTransformPoint(transform.position);
+        SplineUtility.GetNearestPoint(nativeSpline, localSplinePoint, out float3 nearestPoint3, out splineT);
     }
     void OnDisable()
     {
