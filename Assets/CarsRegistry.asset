@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9dc7c9be6334bfda99f17991e1facc8, type: 3}
+  m_Name: CarsRegistry
+  m_EditorClassIdentifier: 
+  cars:
+  - car: {fileID: 4408457932595386881, guid: ac7bf335cf726284d8c194151b1eaf55, type: 3}
+    spawnChance: 1
+  - car: {fileID: 4408457932595386881, guid: f19cd0d7c93a92443ba53726c6c051b4, type: 3}
+    spawnChance: 1

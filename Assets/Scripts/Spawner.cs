@@ -6,9 +6,7 @@ using Random = UnityEngine.Random;
 
 public class Spawner: MonoBehaviour
 {
-    public GameObject prefab;
     public Transform parent;
-    public Transform origin;
     public float freqency = 1f;
     private float _timer;
     public float xOffset = 25f;
@@ -18,6 +16,7 @@ public class Spawner: MonoBehaviour
     public float speedIncrease = 5f;
     public Player player;
     public float distanceFromCamera;
+    public CarsRegistry carsRegistry;
     
     private bool isFirstUpdate = true;
 
@@ -60,11 +59,12 @@ public class Spawner: MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(tangent);
         var randomOffset = Random.Range(-xOffset, xOffset);
         spawnPosition += Quaternion.Euler(0, 90, 0) * tangent * randomOffset;
-        if (Physics.Raycast(spawnPosition, tangent , out var hit, 
+        if (Physics.SphereCast(spawnPosition, 3f, tangent , out var hit, 
                 30f, LayerMask.GetMask("CarSelect", "Car", "Obstacles")))
         {
             return false;
         }
+        var prefab = carsRegistry.Sample().car;
         var spawned = Instantiate(prefab, spawnPosition, rotation, parent);
         spawned.GetComponent<Rigidbody>().linearVelocity =
             spawned.transform.forward * speed;

@@ -1208,8 +1208,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.31730464, y: -0, z: -0, w: 0.94832367}
-  m_LocalPosition: {x: 0, y: 9.8, z: -8.5}
+  m_LocalRotation: {x: 0.17751415, y: 0, z: 0, w: 0.9841183}
+  m_LocalPosition: {x: 0, y: 7.1, z: -18.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1217,7 +1217,7 @@ Transform:
   - {fileID: 1485803951}
   - {fileID: 1679133480}
   m_Father: {fileID: 847368767}
-  m_LocalEulerAnglesHint: {x: 37, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 20.45, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2290,9 +2290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1544c5faa42f4f429946cdd1672f980b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 7552817236936439721, guid: f19cd0d7c93a92443ba53726c6c051b4, type: 3}
   parent: {fileID: 391534821}
-  origin: {fileID: 579105980}
   freqency: 0.2
   xOffset: 5
   initialOffsetZ: 225
@@ -2301,6 +2299,7 @@ MonoBehaviour:
   speedIncrease: 20
   player: {fileID: 1640425227}
   distanceFromCamera: -10
+  carsRegistry: {fileID: 11400000, guid: 076be881953ac6c448bcf3a474d1cfbe, type: 2}
 --- !u!4 &585382520 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3255084229066218333, guid: 67964ee2cc318894b89ad9888c3bcd42,
@@ -6476,9 +6475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1544c5faa42f4f429946cdd1672f980b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 7552817236936439721, guid: f19cd0d7c93a92443ba53726c6c051b4, type: 3}
   parent: {fileID: 391534821}
-  origin: {fileID: 1485803951}
   freqency: 1
   xOffset: 5
   initialOffsetZ: 225
@@ -6487,6 +6484,7 @@ MonoBehaviour:
   speedIncrease: -6
   player: {fileID: 1640425227}
   distanceFromCamera: 100
+  carsRegistry: {fileID: 11400000, guid: 076be881953ac6c448bcf3a474d1cfbe, type: 2}
 --- !u!1 &1490548697
 GameObject:
   m_ObjectHideFlags: 0

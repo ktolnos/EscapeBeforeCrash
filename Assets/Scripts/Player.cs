@@ -32,15 +32,15 @@ public class Player: MonoBehaviour
         }
         if (Input.GetButton("Horizontal"))
         {
-            this.car.TurnCar(10f * Input.GetAxis("Horizontal"));
+            this.car.TurnCar(Input.GetAxis("Horizontal"));
         }
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if ((Physics.Raycast(ray, out var hit, 100f, LayerMask.GetMask("Car"))
-              || Physics.Raycast(ray, out hit, 100f, LayerMask.GetMask("CarSelect")))
+        if ((Physics.Raycast(ray, out var hit, 200f, LayerMask.GetMask("Car"))
+              || Physics.Raycast(ray, out hit, 200f, LayerMask.GetMask("CarSelect")))
             && hit.rigidbody != null && hit.rigidbody.TryGetComponent<Car>(out var car)
             && Vector3.Distance(car.transform.position, transform.position) < radius)
         {
-            car.Highlight();
+            car.Highlight(Color.white);
             if (Input.GetMouseButtonDown(0))
             {
                 this.car.Leave();
@@ -60,5 +60,6 @@ public class Player: MonoBehaviour
         {
             speedText.color = Color.white;
         }
+        this.car.Highlight(Color.green, Outline.Mode.OutlineHidden);
     }
 }

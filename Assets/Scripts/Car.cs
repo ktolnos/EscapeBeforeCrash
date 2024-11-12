@@ -8,7 +8,8 @@ using UnityEngine.SceneManagement;
 
 public enum vehicleType{
     Gun,
-    Shahid
+    Shahid,
+    Boost,
 }
 
 public class Car: MonoBehaviour
@@ -29,6 +30,7 @@ public class Car: MonoBehaviour
     private Outline _outline;
     private int _framesSinceHighlighted;
     private bool actionUsed = false;
+    private float actionCharge = 1f;
     public float secondsBeforeDestroy = 2f;
     public GameObject fire;
     public GameObject explosion;
@@ -41,6 +43,9 @@ public class Car: MonoBehaviour
     private float _boostCooldown = 1f;
     public bool isBehindCamera;
     private static int _carsDestroyedThisFrame = 0;
+    public float downforce = 100f;
+    private float _timeScinceSpawned;
+    public float boostForce = 100000f;
     
     public void Awake()
     {
@@ -54,6 +59,7 @@ public class Car: MonoBehaviour
 
     public void Update()
     {
+        _timeScinceSpawned += Time.deltaTime;
         Utils.GetNearestPointAndT(transform.position + transform.forward * 6, splineT,
             out splineT, out var tangent);
         if ((transform.position - CameraController.Instance.transform.position).magnitude > maxCameraDistance)
@@ -103,14 +109,14 @@ public class Car: MonoBehaviour
                     LayerMask.GetMask("Obstacles")))
             {
                 totalDistance = hit.distance;
-                Debug.DrawRay(frontLeftWheelCollider.transform.position, direction * RaycastLength, Color.red);
+                // Debug.DrawRay(frontLeftWheelCollider.transform.position, direction * RaycastLength, Color.red);
             }
             
             if (Physics.Raycast(frontRightWheelCollider.transform.position, direction, out hit, RaycastLength, 
                 LayerMask.GetMask("Obstacles")))
             {
                 totalDistance = Mathf.Min(totalDistance, hit.distance);
-                Debug.DrawRay(frontRightWheelCollider.transform.position, direction * RaycastLength, Color.red);
+                // Debug.DrawRay(frontRightWheelCollider.transform.position, direction * RaycastLength, Color.red);
             }
             
             if (totalDistance > furhtestDistance)
@@ -133,7 +139,7 @@ public class Car: MonoBehaviour
         rearLeftWheelCollider.wheelCollider.motorTorque = torque;
         rearRightWheelCollider.wheelCollider.motorTorque = torque;
         
-        if (rb.linearVelocity.magnitude <= minSpeed && _destroyCarEnumerator == null)
+        if (rb.linearVelocity.magnitude <= minSpeed && _destroyCarEnumerator == null && _timeScinceSpawned > 5f)
         {
             _destroyCarEnumerator = DestroyCar();
             StartCoroutine(_destroyCarEnumerator);
@@ -151,6 +157,11 @@ public class Car: MonoBehaviour
     {
         _carsDestroyedThisFrame = 0;
     }
+    
+    private void FixedUpdate()
+    {
+        rb.AddForce(-transform.up * downforce);
+    }
 
     private IEnumerator DestroyCar()
     {
@@ -161,11 +172,13 @@ public class Car: MonoBehaviour
     private IEnumerator AnimateExplosion()
     {
         explosion.SetActive(true);
+        explosion.transform.parent = null;
+        Destroy(explosion.gameObject, 2f);
         if (_player != null)
         {
             _player.gameEnded = true;
         }
-        transform.DOScale(Vector3.zero, 1f);
+        transform.DOScale(Vector3.zero, 0.2f);
         yield return new WaitForSeconds(1);
         Destroy(gameObject);
         if (_player != null)
@@ -187,9 +200,11 @@ public class Car: MonoBehaviour
         StopCoroutine(nameof(MovePlayer));
     }
     
-    public void Highlight()
+    public void Highlight(Color color, Outline.Mode mode = Outline.Mode.OutlineAll)
     {
         _outline.enabled = true;
+        _outline.OutlineColor = color;
+        _outline.OutlineMode = mode;
         _framesSinceHighlighted = 0;
     }
     public void Action(){
@@ -199,12 +214,15 @@ public class Car: MonoBehaviour
         if (type == vehicleType.Gun){
            GetComponentInChildren<Gun>().Shoot();
         }
+        else if (type == vehicleType.Boost){
+            rb.AddForce(transform.forward * boostForce, ForceMode.Impulse);
+        }
         actionUsed = true;
     }
     public void TurnCar(float direction)
     {
-        this.frontLeftWheelCollider.wheelCollider.steerAngle = direction;
-        this.frontRightWheelCollider.wheelCollider.steerAngle = direction;
+        this.frontLeftWheelCollider.wheelCollider.steerAngle = direction * maxSteerAngle;
+        this.frontRightWheelCollider.wheelCollider.steerAngle = direction * maxSteerAngle;
     }
 
     
