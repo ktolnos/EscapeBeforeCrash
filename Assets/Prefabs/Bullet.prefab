@@ -123,6 +123,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5000
+  bulletHitEffect: {fileID: 5374260368903155906, guid: 5ef7f6ad179fdc04bbc5ef1b3fb70a7e,
+    type: 3}
+  hitRadius: 10
+  impactForce: 70000
 --- !u!54 &-5550865821935837295
 Rigidbody:
   m_ObjectHideFlags: 0

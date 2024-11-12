@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
+using UnityEditor;
 
 public class CameraController : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class CameraController : MonoBehaviour
     public static CameraController Instance;
     public float splineT;
     public NativeSpline nativeSpline;
+    public GameObject player;
+    
+    private Player playerScript;
+    
     void OnEnable()
     {
         nativeSpline = new NativeSpline(mainSpline.Spline, Unity.Collections.Allocator.Persistent);
@@ -27,6 +32,7 @@ public class CameraController : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        playerScript = player.GetComponent<Player>();
     }
 
     private void Start()
@@ -34,6 +40,7 @@ public class CameraController : MonoBehaviour
         //_offset = transform.position - target.position;
     }
 
+    [Obsolete("Obsolete")]
     private void LateUpdate()
     {
         transform.position = target.position + _offset;

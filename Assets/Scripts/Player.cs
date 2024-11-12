@@ -9,6 +9,7 @@ public class Player: MonoBehaviour
     public TextMeshProUGUI speedText;
     public bool gameEnded;
     public static Player Instance;
+    public float speed;
     
     public void Awake()
     {
@@ -50,7 +51,7 @@ public class Player: MonoBehaviour
             
         }
 
-        var speed = this.car.rb.linearVelocity.magnitude;
+        speed = this.car.rb.linearVelocity.magnitude;
         speedText.text = $"{speed * 10:0} km/h";
         if (speed <= this.car.minSpeed)
         {
