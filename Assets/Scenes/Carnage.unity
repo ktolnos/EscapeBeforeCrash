@@ -1262,7 +1262,6 @@ GameObject:
   m_Component:
   - component: {fileID: 330585546}
   - component: {fileID: 330585545}
-  - component: {fileID: 330585544}
   - component: {fileID: 330585547}
   m_Layer: 0
   m_Name: Main Camera
@@ -1271,14 +1270,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &330585544
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
 --- !u!20 &330585545
 Camera:
   m_ObjectHideFlags: 0
@@ -2500,7 +2491,7 @@ MonoBehaviour:
   initialSpeed: 5
   speedIncrease: 20
   player: {fileID: 1640425227}
-  distanceFromCamera: -10
+  distanceFromCamera: -15
   carsRegistry: {fileID: 11400000, guid: 076be881953ac6c448bcf3a474d1cfbe, type: 2}
 --- !u!4 &585382520 stripped
 Transform:
@@ -14199,6 +14190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1640425226}
   - component: {fileID: 1640425227}
+  - component: {fileID: 1640425228}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -14239,6 +14231,14 @@ MonoBehaviour:
   speedText: {fileID: 203261877}
   gameEnded: 0
   speed: 0
+--- !u!81 &1640425228
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640425225}
+  m_Enabled: 1
 --- !u!1 &1667309197
 GameObject:
   m_ObjectHideFlags: 0

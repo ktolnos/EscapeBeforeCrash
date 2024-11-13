@@ -44,7 +44,7 @@ public class Car: MonoBehaviour
     private static int _carsDestroyedThisFrame = 0;
     public float downforce = 100f;
     private float _timeScinceSpawned;
-    public float boostForce = 100000f;
+    
     
     public void Awake()
     {
@@ -215,7 +215,7 @@ public class Car: MonoBehaviour
            GetComponentInChildren<Gun>().Shoot();
         }
         else if (type == vehicleType.Boost){
-            rb.AddForce(transform.forward * boostForce, ForceMode.Impulse);
+            GetComponentInChildren<Nitro>().boost();
         }
         actionUsed = true;
     }
