@@ -30,7 +30,6 @@ public class Car: MonoBehaviour
     private Outline _outline;
     private int _framesSinceHighlighted;
     private bool actionUsed = false;
-    private float actionCharge = 1f;
     public float secondsBeforeDestroy = 2f;
     public GameObject fire;
     public GameObject explosion;
@@ -180,6 +179,7 @@ public class Car: MonoBehaviour
         }
         transform.DOScale(Vector3.zero, 0.2f);
         yield return new WaitForSeconds(1);
+        transform.DOKill();
         Destroy(gameObject);
         if (_player != null)
         {
@@ -257,9 +257,18 @@ public class Car: MonoBehaviour
             }
         }
     }
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Finish") && _player != null)
+        {
+            UIManager.Instance.ShowFinishedPanel();
+        }   
+    }
+
     public void OnDestroy()
     {
+        transform.DOKill();
         CarCount--;
     }
 }

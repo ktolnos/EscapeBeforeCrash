@@ -7,27 +7,35 @@ public class Utils
     public static void GetNearestPointAndT(Vector3 point, float lastT, out float t, out Vector3 tangent)
     {
         Vector3 localSplinePoint = CameraController.Instance.mainSpline.transform.InverseTransformPoint(point);
-        GetNearestPoint(CameraController.Instance.nativeSpline, localSplinePoint, out float3 nearestPoint3, out t, lastT);
+        GetNearestPoint(CameraController.Instance.nativeSpline, localSplinePoint, out float3 nearestPoint3, out t, 
+                new Segment(lastT, 0.01f)
+            );
+        if (Mathf.Abs(lastT+0.01f - t) < 0.00001f)
+        {
+            Debug.LogWarning("Unexpected track progression");
+            GetNearestPoint(CameraController.Instance.nativeSpline, localSplinePoint, out nearestPoint3, out t, 
+                new Segment(0f, 1f), 5, 7
+            );
+        }
         // nearestPoint = CameraController.Instance.mainSpline.transform.TransformPoint(nearestPoint3);
         tangent = SplineUtility.EvaluateTangent(CameraController.Instance.nativeSpline, t);
     }
     
-    public static float GetNearestPoint<T>(T spline,
+    static float GetNearestPoint<T>(T spline,
         float3 point,
         out float3 nearest,
         out float t,
-        float lastT,
-        int resolution = SplineUtility.PickResolutionDefault,
+        Segment segment,
+        int resolution = 5,
         int iterations = 3) where T : ISpline
     {
         float distance = float.PositiveInfinity;
         nearest = float.PositiveInfinity;
-        Segment segment = new Segment(lastT, 0.01f);
         t = 0f;
 
         for (int i = 0, c = iterations; i < c; i++)
         {
-            int segments = 5;
+            int segments = resolution;
             segment = GetNearestPoint(spline, point, segment, out distance, out nearest, out t, segments);
         }
 
