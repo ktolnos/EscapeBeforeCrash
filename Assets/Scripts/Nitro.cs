@@ -14,10 +14,10 @@ public class Nitro : MonoBehaviour
         audioSource = GetComponentInParent<AudioSource>();
     }
     
-    public void boost()
+    public void boost(Vector3 direction)
     {
         audioSource.PlayOneShot(nitroSound);
-        rb.AddForce(transform.forward * power, ForceMode.Impulse);
+        rb.AddForce(direction * power, ForceMode.Impulse);
         Destroy(Instantiate(effect, transform.position, transform.rotation), 100f);
     }
 }

@@ -10,6 +10,7 @@ public enum vehicleType{
     Gun,
     Shahid,
     Boost,
+    Jump,
 }
 
 public class Car: MonoBehaviour
@@ -215,7 +216,10 @@ public class Car: MonoBehaviour
            GetComponentInChildren<Gun>().Shoot();
         }
         else if (type == vehicleType.Boost){
-            GetComponentInChildren<Nitro>().boost();
+            GetComponentInChildren<Nitro>().boost(transform.forward);
+        }
+        else if (type == vehicleType.Jump){
+            GetComponentInChildren<Nitro>().boost(Vector3.up);
         }
         actionUsed = true;
     }

@@ -5177,7 +5177,7 @@ MonoBehaviour:
   splineT: 0
   behindCameraSpeedup: 0
   isBehindCamera: 0
-  downforce: 1000
+  downforce: 0
 --- !u!114 &452763369560871262
 MonoBehaviour:
   m_ObjectHideFlags: 0
