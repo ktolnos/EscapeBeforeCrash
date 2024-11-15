@@ -3,7 +3,32 @@ guid: 7540f0a7fd0306145b920f19da56ab76
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body
+    second: {fileID: 2100000, guid: 964f21cbd63e51741b423ea15205b75e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal
+    second: {fileID: 2100000, guid: 96f32440e34f9ff42a94dcd4d2530c08, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rubber
+    second: {fileID: 2100000, guid: c16af36f83e42954fa0ebabdcc489373, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Strip
+    second: {fileID: 2100000, guid: 321b288de74a424488bb39a7520abd39, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Window
+    second: {fileID: 2100000, guid: d670d45b170b13f42858f33927acec98, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
