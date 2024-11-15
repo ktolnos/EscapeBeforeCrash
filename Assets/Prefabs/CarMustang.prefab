@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8792741434721661582}
   - component: {fileID: 5497176725775458398}
   - component: {fileID: 1285425493271994092}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4842,7 +4842,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8176135356469453251}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Seat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4921,7 +4921,7 @@ GameObject:
   m_Component:
   - component: {fileID: 942262705162239829}
   - component: {fileID: 6116288391137739323}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Select
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5398,6 +5398,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: wheel
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4391b6278ed7f904aae152adee417599,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5486,6 +5491,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: wheel
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4391b6278ed7f904aae152adee417599,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5695,6 +5705,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6221470811668858429, guid: 14894bb566c55ec4c9fe61341073b3c6,
         type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6221470811668858429, guid: 14894bb566c55ec4c9fe61341073b3c6,
+        type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -5786,6 +5801,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: wheel
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4391b6278ed7f904aae152adee417599,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5900,6 +5920,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: body
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7540f0a7fd0306145b920f19da56ab76,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278243513616918998, guid: 7540f0a7fd0306145b920f19da56ab76,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700725330082129686, guid: 7540f0a7fd0306145b920f19da56ab76,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6284,6 +6319,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: wheel
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4391b6278ed7f904aae152adee417599,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
