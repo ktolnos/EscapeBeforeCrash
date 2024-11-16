@@ -19,12 +19,12 @@ public class Bullet : MonoBehaviour
         audioSource.PlayOneShot(hitSound);
         foreach (var hit in Physics.SphereCastAll(transform.position, hitRadius, Vector3.up, hitRadius))
         {
+            if (hit.transform.GetComponentInParent<Destroyable>() != null)
+            {
+                hit.transform.GetComponent<Destroyable>().Destroy();
+            }
             if (hit.collider.attachedRigidbody != null)
             {
-                if (hit.transform.GetComponentInParent<Destroyable>() != null)
-                {
-                    hit.transform.GetComponent<Destroyable>().Destroy();
-                }
                 hit.collider.attachedRigidbody.AddForce((transform.position - hit.transform.position).normalized * impactForce, ForceMode.Impulse);
             }
         }
