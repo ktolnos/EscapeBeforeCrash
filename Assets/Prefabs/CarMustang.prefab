@@ -5061,8 +5061,7 @@ MonoBehaviour:
   minSpeed: 5
   secondsBeforeDestroy: 2
   fire: {fileID: 2576123305441321687, guid: ac7bf335cf726284d8c194151b1eaf55, type: 3}
-  explosion: {fileID: 7011540988894241787, guid: ac7bf335cf726284d8c194151b1eaf55,
-    type: 3}
+  explosion: {fileID: 7011540988894241787}
   debugSphere: {fileID: 0}
   maxCameraDistance: 200
   splineT: 0
@@ -5721,6 +5720,12 @@ PrefabInstance:
 --- !u!4 &4550806527093385734 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 593722741903069120, guid: 14894bb566c55ec4c9fe61341073b3c6,
+    type: 3}
+  m_PrefabInstance: {fileID: 3970738758811788742}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7011540988894241787 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6221470811668858429, guid: 14894bb566c55ec4c9fe61341073b3c6,
     type: 3}
   m_PrefabInstance: {fileID: 3970738758811788742}
   m_PrefabAsset: {fileID: 0}

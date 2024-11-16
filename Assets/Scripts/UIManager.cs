@@ -2,14 +2,16 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class UIManager: MonoBehaviour
 {
     public static UIManager Instance;
     public RectTransform finishedPanel;
     public TextMeshProUGUI clock;
+    public RectTransform inGameUI;
     
-    private bool _gameEnded;
+    public bool gameEnded;
     
     public void Awake()
     {
@@ -19,10 +21,15 @@ public class UIManager: MonoBehaviour
     
     public void ShowFinishedPanel()
     {
-        if (_gameEnded)
+        if (gameEnded)
         {
             return;
         }
+        inGameUI.DOScale(1.5f, 0.3f).SetEase(Ease.OutElastic).onComplete += () =>
+        {
+            inGameUI.gameObject.SetActive(false);
+        };
+        inGameUI.gameObject.SetActive(false);
         finishedPanel.gameObject.SetActive(true);
         finishedPanel.anchorMin = new Vector2(0f, 1f);
         finishedPanel.anchorMax = new Vector2(1f, 2f);
@@ -33,12 +40,12 @@ public class UIManager: MonoBehaviour
         LeaderboardManager.Instance.UpdateScore();
         LeaderboardManager.Instance.OnShowLeaderboard();
 
-        _gameEnded = true;
+        gameEnded = true;
     }
     
     public void Update()
     {
-        if (_gameEnded)
+        if (gameEnded)
         {
             return;
         }

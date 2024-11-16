@@ -62,7 +62,8 @@ public class Car: MonoBehaviour
         _timeScinceSpawned += Time.deltaTime;
         Utils.GetNearestPointAndT(transform.position + transform.forward * 6, splineT,
             out splineT, out var tangent);
-        if ((transform.position - CameraController.Instance.transform.position).magnitude > maxCameraDistance)
+        if ((transform.position - CameraController.Instance.transform.position).magnitude > maxCameraDistance
+            && !UIManager.Instance.gameEnded)
         {
             Destroy(gameObject);
             _carsDestroyedThisFrame++;
@@ -74,7 +75,8 @@ public class Car: MonoBehaviour
 
         if (isBehindCamera &&
             rb.linearVelocity.sqrMagnitude < Player.Instance.car.rb.linearVelocity.sqrMagnitude &&
-            CarCount - _carsDestroyedThisFrame >= MaxCars-1)
+            CarCount - _carsDestroyedThisFrame >= MaxCars-1
+            && !UIManager.Instance.gameEnded)
         {
             Destroy(gameObject);
             _carsDestroyedThisFrame++;
@@ -171,6 +173,10 @@ public class Car: MonoBehaviour
     
     private IEnumerator AnimateExplosion()
     {
+        if (UIManager.Instance.gameEnded)
+        {
+            yield break;
+        }
         explosion.SetActive(true);
         explosion.transform.parent = null;
         Destroy(explosion.gameObject, 2f);
@@ -181,6 +187,10 @@ public class Car: MonoBehaviour
         transform.DOScale(Vector3.zero, 0.2f);
         yield return new WaitForSeconds(1);
         transform.DOKill();
+        if (UIManager.Instance.gameEnded)
+        {
+            yield break;
+        }
         Destroy(gameObject);
         if (_player != null)
         {
