@@ -5053,13 +5053,13 @@ MonoBehaviour:
   rearLeftWheelCollider: {fileID: 6834105711246395765}
   rearRightWheelCollider: {fileID: 4278365186602069917}
   torque: 1000
-  randomTorque: 300
+  randomTorque: 250
   maxSteerAngle: 30
   seat: {fileID: 8176135356469453251}
   type: 2
   rb: {fileID: 0}
   minSpeed: 5
-  secondsBeforeDestroy: 2
+  secondsBeforeDestroy: 1
   fire: {fileID: 2576123305441321687, guid: ac7bf335cf726284d8c194151b1eaf55, type: 3}
   explosion: {fileID: 7011540988894241787}
   debugSphere: {fileID: 0}

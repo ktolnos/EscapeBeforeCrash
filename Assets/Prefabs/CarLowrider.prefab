@@ -4909,7 +4909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effect: {fileID: 5374260368903155906, guid: ead28c9849da7fb4aacc14318492b326, type: 3}
-  power: 5000
+  power: 15000
   nitroSound: {fileID: 8300000, guid: ff0a5c5e73686df4c9bc0d4ff060b608, type: 3}
 --- !u!1 &5415073189510871459
 GameObject:
@@ -5052,14 +5052,14 @@ MonoBehaviour:
   frontRightWheelCollider: {fileID: 3554746513067293043}
   rearLeftWheelCollider: {fileID: 6834105711246395765}
   rearRightWheelCollider: {fileID: 4278365186602069917}
-  torque: 1000
-  randomTorque: 300
+  torque: 800
+  randomTorque: 200
   maxSteerAngle: 30
   seat: {fileID: 8176135356469453251}
   type: 3
   rb: {fileID: 0}
   minSpeed: 5
-  secondsBeforeDestroy: 2
+  secondsBeforeDestroy: 1
   fire: {fileID: 2576123305441321687, guid: ac7bf335cf726284d8c194151b1eaf55, type: 3}
   explosion: {fileID: 7011540988894241787}
   debugSphere: {fileID: 0}

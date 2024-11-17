@@ -5100,14 +5100,14 @@ MonoBehaviour:
   frontRightWheelCollider: {fileID: 3554746513067293043}
   rearLeftWheelCollider: {fileID: 6834105711246395765}
   rearRightWheelCollider: {fileID: 4278365186602069917}
-  torque: 1000
-  randomTorque: 300
+  torque: 500
+  randomTorque: 150
   maxSteerAngle: 30
   seat: {fileID: 8176135356469453251}
   type: 3
   rb: {fileID: 0}
   minSpeed: 5
-  secondsBeforeDestroy: 2
+  secondsBeforeDestroy: 1
   fire: {fileID: 2576123305441321687}
   explosion: {fileID: 7011540988894241787}
   debugSphere: {fileID: 0}
