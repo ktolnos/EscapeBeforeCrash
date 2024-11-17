@@ -126,8 +126,8 @@ MonoBehaviour:
   speed: 5000
   bulletHitEffect: {fileID: 5374260368903155906, guid: 5ef7f6ad179fdc04bbc5ef1b3fb70a7e,
     type: 3}
-  hitRadius: 10
-  impactForce: 70000
+  hitRadius: 20
+  impactForce: 10000
   hitSound: {fileID: 8300000, guid: ff0a5c5e73686df4c9bc0d4ff060b608, type: 3}
 --- !u!54 &-5550865821935837295
 Rigidbody:

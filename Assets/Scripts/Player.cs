@@ -22,6 +22,14 @@ public class Player: MonoBehaviour
         car.Sit(this);
     }
     
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Finish"))
+        {
+            UIManager.Instance.ShowFinishedPanel();
+        }   
+    }
+    
     public void Update()
     {
         if (gameEnded)

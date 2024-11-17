@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Splines;
 
 
 public enum vehicleType{
@@ -22,7 +23,7 @@ public class Car: MonoBehaviour
     public Transform seat;
     public vehicleType type;
     private const int NRaycasts = 4;
-    private const float RaycastLength = 40;
+    private const float RaycastLength = 60;
     private const float RaycastAngleMax = 30f;
     public Rigidbody rb;
     private IEnumerator _destroyCarEnumerator;
@@ -45,6 +46,9 @@ public class Car: MonoBehaviour
     private static int _carsDestroyedThisFrame = 0;
     public float downforce = 100f;
     private float _timeScinceSpawned;
+    public bool FWD = true;
+    public bool RWD = true;
+    private Wheel[] _wheels = new Wheel[4];
     
     
     public void Awake()
@@ -55,13 +59,22 @@ public class Car: MonoBehaviour
         StartCoroutine(Unhighlight());
         CarCount++;
         torque = UnityEngine.Random.Range(torque - randomTorque, torque + randomTorque);
+        _wheels[0] = frontLeftWheelCollider;
+        _wheels[1] = frontRightWheelCollider;
+        _wheels[2] = rearLeftWheelCollider;
+        _wheels[3] = rearRightWheelCollider;
     }
 
     public void Update()
     {
         _timeScinceSpawned += Time.deltaTime;
-        Utils.GetNearestPointAndT(transform.position + transform.forward * 6, splineT,
+        Utils.GetNearestPointAndT(transform.position, splineT,
             out splineT, out var tangent);
+        var aheadAmount = 20f;
+        var tAhead = splineT + aheadAmount / CameraController.Instance.nativeSpline.GetLength();
+        var nearestPoint3 = CameraController.Instance.nativeSpline.EvaluatePosition(tAhead);
+        var nearestPoint = CameraController.Instance.mainSpline.transform.TransformPoint(nearestPoint3);
+
         if ((transform.position - CameraController.Instance.transform.position).magnitude > maxCameraDistance
             && !UIManager.Instance.gameEnded)
         {
@@ -94,6 +107,10 @@ public class Car: MonoBehaviour
         }
         
         float trackAngle = Quaternion.FromToRotation(transform.forward, tangent).eulerAngles.y;
+        if (Vector3.Distance(transform.position, nearestPoint) > aheadAmount + 7f)
+        {
+            trackAngle = Quaternion.FromToRotation(transform.forward, nearestPoint - transform.position).eulerAngles.y;
+        }
         var furthestAngle = trackAngle;
         var furhtestDistance = 0f;
         for (int i = -1; i < NRaycasts; i++)
@@ -105,7 +122,7 @@ public class Car: MonoBehaviour
                 angle = trackAngle;
             }
             var direction = Quaternion.Euler(0, angle, 0) * transform.forward;
-
+        
             var totalDistance = RaycastLength * 2f;
             if (Physics.Raycast(frontLeftWheelCollider.transform.position, direction, out var hit, RaycastLength, 
                     LayerMask.GetMask("Obstacles")))
@@ -133,14 +150,23 @@ public class Car: MonoBehaviour
         steerAngle = steerAngle > 180f ? steerAngle - 360f : steerAngle;
         steerAngle = Mathf.Clamp(steerAngle, -maxSteerAngle, maxSteerAngle);
         
-        frontLeftWheelCollider.wheelCollider.steerAngle = steerAngle;
-        frontRightWheelCollider.wheelCollider.steerAngle = steerAngle;
+        frontLeftWheelCollider.wheelCollider.steerAngle = Mathf.MoveTowardsAngle(
+            frontLeftWheelCollider.wheelCollider.steerAngle, steerAngle, 360f * Time.deltaTime);
+        frontRightWheelCollider.wheelCollider.steerAngle = Mathf.MoveTowardsAngle(
+            frontRightWheelCollider.wheelCollider.steerAngle, steerAngle, 360f * Time.deltaTime);
 
-        frontLeftWheelCollider.wheelCollider.motorTorque = torque;
-        frontRightWheelCollider.wheelCollider.motorTorque = torque;
-        rearLeftWheelCollider.wheelCollider.motorTorque = torque;
-        rearRightWheelCollider.wheelCollider.motorTorque = torque;
-        
+        if (FWD)
+        {
+            frontLeftWheelCollider.wheelCollider.motorTorque = torque;
+            frontRightWheelCollider.wheelCollider.motorTorque = torque;
+        }
+
+        if (RWD)
+        {
+            rearLeftWheelCollider.wheelCollider.motorTorque = torque;
+            rearRightWheelCollider.wheelCollider.motorTorque = torque;
+        }
+
         if (rb.linearVelocity.magnitude <= minSpeed && _destroyCarEnumerator == null && _timeScinceSpawned > 5f)
         {
             _destroyCarEnumerator = DestroyCar();
@@ -162,7 +188,7 @@ public class Car: MonoBehaviour
     
     private void FixedUpdate()
     {
-        rb.AddForce(-transform.up * downforce);
+        rb.AddForce(Vector3.down * downforce * rb.mass);
     }
 
     private IEnumerator DestroyCar()
@@ -270,14 +296,6 @@ public class Car: MonoBehaviour
                 }
             }
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Finish") && _player != null)
-        {
-            UIManager.Instance.ShowFinishedPanel();
-        }   
     }
 
     public void OnDestroy()

@@ -10,18 +10,33 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: c96a00f3b14a7fd479a11c05529bcb44,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.72
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c96a00f3b14a7fd479a11c05529bcb44,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.1456666
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c96a00f3b14a7fd479a11c05529bcb44,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3.7654302
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c96a00f3b14a7fd479a11c05529bcb44,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -4.09
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c96a00f3b14a7fd479a11c05529bcb44,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -64.85
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c96a00f3b14a7fd479a11c05529bcb44,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.67
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c96a00f3b14a7fd479a11c05529bcb44,
         type: 3}
@@ -31,17 +46,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: c96a00f3b14a7fd479a11c05529bcb44,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c96a00f3b14a7fd479a11c05529bcb44,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c96a00f3b14a7fd479a11c05529bcb44,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c96a00f3b14a7fd479a11c05529bcb44,
         type: 3}
@@ -151,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbee9e0d6a0fad74580d39b7e9a9231b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  power: 25000
+  power: 2500
 --- !u!1 &8382865506296776458 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8391222552659086748, guid: c96a00f3b14a7fd479a11c05529bcb44,

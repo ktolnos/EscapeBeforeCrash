@@ -14,7 +14,6 @@ public class Spawner: MonoBehaviour
     public int initialCars = 50;
     public float initialSpeed = 5f;
     public float speedIncrease = 5f;
-    public Player player;
     public float distanceFromCamera;
     public CarsRegistry carsRegistry;
     
@@ -40,7 +39,7 @@ public class Spawner: MonoBehaviour
         if (_timer >= freqency && Car.CarCount <= Car.MaxCars)
         {
             if (SpawnCar(distanceFromCamera,
-                    Mathf.Max(player.car.rb.linearVelocity.magnitude, initialSpeed) + speedIncrease))
+                    Mathf.Max(Player.Instance.car.rb.linearVelocity.magnitude, initialSpeed) + speedIncrease))
             {
                 _timer = 0;
             }
@@ -59,7 +58,7 @@ public class Spawner: MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(tangent);
         var randomOffset = Random.Range(-xOffset, xOffset);
         spawnPosition += Quaternion.Euler(0, 90, 0) * tangent * randomOffset;
-        if (Physics.SphereCast(spawnPosition, 3f, tangent , out var hit, 
+        if (Physics.SphereCast(spawnPosition, 5f, tangent , out var hit, 
                 30f, LayerMask.GetMask("CarSelect", "Car", "Obstacles")))
         {
             return false;

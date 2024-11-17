@@ -14,9 +14,6 @@ public class CameraController : MonoBehaviour
     public static CameraController Instance;
     public float splineT;
     public NativeSpline nativeSpline;
-    public GameObject player;
-    
-    private Player playerScript;
     
     void OnEnable()
     {
@@ -32,7 +29,6 @@ public class CameraController : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        playerScript = player.GetComponent<Player>();
     }
 
     private void Start()
