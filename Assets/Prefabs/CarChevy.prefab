@@ -64,7 +64,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8792741434721661582
 Transform:
   m_ObjectHideFlags: 0
@@ -5070,6 +5070,7 @@ MonoBehaviour:
   downforce: 30
   FWD: 1
   RWD: 0
+  maxDistanceToCenter: 7
 --- !u!114 &452763369560871262
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,7 +8,6 @@ using UnityEditor;
 
 public class CameraController : MonoBehaviour
 {
-    public Transform target;
     private Vector3 _offset;
     public SplineContainer mainSpline;
     public static CameraController Instance;
@@ -36,10 +35,9 @@ public class CameraController : MonoBehaviour
         //_offset = transform.position - target.position;
     }
 
-    [Obsolete("Obsolete")]
     private void LateUpdate()
     {
-        transform.position = target.position + _offset;
+        transform.position = Player.Instance.transform.position + _offset;
         Utils.GetNearestPointAndT(transform.position,  splineT, out splineT, out var tangent);
         transform.forward = tangent;
     }

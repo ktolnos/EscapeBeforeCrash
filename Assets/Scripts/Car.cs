@@ -24,7 +24,6 @@ public class Car: MonoBehaviour
     public vehicleType type;
     private const int NRaycasts = 4;
     private const float RaycastLength = 60;
-    private const float RaycastAngleMax = 30f;
     public Rigidbody rb;
     private IEnumerator _destroyCarEnumerator;
     public float minSpeed = 5f;
@@ -49,6 +48,7 @@ public class Car: MonoBehaviour
     public bool FWD = true;
     public bool RWD = true;
     private Wheel[] _wheels = new Wheel[4];
+    public float maxDistanceToCenter = 7f;
     
     
     public void Awake()
@@ -107,7 +107,7 @@ public class Car: MonoBehaviour
         }
         
         float trackAngle = Quaternion.FromToRotation(transform.forward, tangent).eulerAngles.y;
-        if (Vector3.Distance(transform.position, nearestPoint) > aheadAmount + 7f)
+        if (Vector3.Distance(transform.position, nearestPoint) > aheadAmount + maxDistanceToCenter)
         {
             trackAngle = Quaternion.FromToRotation(transform.forward, nearestPoint - transform.position).eulerAngles.y;
         }
@@ -116,7 +116,7 @@ public class Car: MonoBehaviour
         for (int i = -1; i < NRaycasts; i++)
         {
             // iterate over angles starting from center and going to the sides
-            var angle = trackAngle + (i % 2 == 0 ? i * RaycastAngleMax / NRaycasts : -(i-1) * RaycastAngleMax / NRaycasts);
+            var angle = trackAngle + (i % 2 == 0 ? i * maxSteerAngle / NRaycasts : -(i-1) * maxSteerAngle / NRaycasts);
             if (i == -1)
             {
                 angle = trackAngle;
