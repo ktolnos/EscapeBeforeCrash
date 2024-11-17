@@ -62,7 +62,10 @@ public class LeaderboardManager: MonoBehaviour
         var leaderboard = await LeaderboardsService.Instance.GetScoresAsync(_leaderboardId);
         foreach (Transform child in leaderboardPanel)
         {
-            Destroy(child.gameObject);
+            if (child != null)
+            {
+                Destroy(child.gameObject);
+            }
         }
         
         foreach (var entry in leaderboard.Results)
