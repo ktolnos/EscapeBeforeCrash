@@ -10,7 +10,7 @@ using UnityEngine;
 
 public class LeaderboardManager: MonoBehaviour
 {
-    private string _leaderboardId = "TestLevel";
+    public string leaderboardId = "TestLevel";
     public static LeaderboardManager Instance;
     public RectTransform leaderboardPanel;
     public RectTransform leaderboardEntryPrefab;
@@ -30,7 +30,7 @@ public class LeaderboardManager: MonoBehaviour
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
         }
 
-        var entry = await LeaderboardsService.Instance.AddPlayerScoreAsync(_leaderboardId, 1e6);
+        var entry = await LeaderboardsService.Instance.AddPlayerScoreAsync(leaderboardId, 1e6);
         usernameInput.SetTextWithoutNotify(entry.PlayerName.Split('#')[0]);
 
         usernameInput.characterLimit = 32;
@@ -45,7 +45,7 @@ public class LeaderboardManager: MonoBehaviour
 
     public async void UpdateScore()
     {
-        await LeaderboardsService.Instance.AddPlayerScoreAsync(_leaderboardId, Time.timeSinceLevelLoad);
+        await LeaderboardsService.Instance.AddPlayerScoreAsync(leaderboardId, Time.timeSinceLevelLoad);
     }
     
     public void OnShowLeaderboard()
@@ -59,7 +59,7 @@ public class LeaderboardManager: MonoBehaviour
 
     private async void UpdateLeaderboardData()
     {
-        var leaderboard = await LeaderboardsService.Instance.GetScoresAsync(_leaderboardId);
+        var leaderboard = await LeaderboardsService.Instance.GetScoresAsync(leaderboardId);
         foreach (Transform child in leaderboardPanel)
         {
             if (child != null)

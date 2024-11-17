@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour
             }
             if (hit.collider.attachedRigidbody != null)
             {
-                hit.collider.attachedRigidbody.AddForce((transform.position - hit.transform.position).normalized * impactForce, ForceMode.Impulse);
+                hit.collider.attachedRigidbody.AddForce((hit.transform.position- transform.position).normalized * impactForce, ForceMode.Impulse);
             }
         }
         Destroy(Instantiate(bulletHitEffect, transform.position, quaternion.identity), 100f);
