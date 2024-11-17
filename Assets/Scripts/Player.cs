@@ -60,7 +60,7 @@ public class Player: MonoBehaviour
         }
 
         speed = this.car.rb.linearVelocity.magnitude;
-        speedText.text = $"{speed * 10:0} km/h";
+        speedText.text = $"{speed * 5:0} km/h";
         if (speed <= this.car.minSpeed)
         {
            speedText.color = Color.red;   

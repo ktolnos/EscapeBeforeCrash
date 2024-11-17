@@ -5,17 +5,29 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Rail.unity
-    guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: e9c7ee1a22c6f9842987f499a3cd67e6
   - enabled: 1
-    path: Assets/Scenes/Carnage.unity
-    guid: 9c965f9808faaad4aba53260bb86ad19
-  - enabled: 1
     path: Assets/Scenes/Tutorial1.unity
     guid: 56219034aadcd584db9bb21699e19fbb
+  - enabled: 1
+    path: Assets/Scenes/Tutorial2.5.unity
+    guid: 0ffbd82448864b64f8edf8197a7223fd
+  - enabled: 1
+    path: Assets/Scenes/Tutorial2.unity
+    guid: ba67172dd12e01c4fafecc57d0b035e7
+  - enabled: 1
+    path: Assets/Scenes/Tutorial3.unity
+    guid: 8f5359d50a1674f4195d409d15c2fae5
+  - enabled: 1
+    path: Assets/Scenes/Tutorial4.unity
+    guid: 291347f8af5b4204a9fe766c66433f9a
+  - enabled: 1
+    path: Assets/Scenes/Tutorial5.unity
+    guid: 88acec927148e8c47afa3dde4ce896eb
+  - enabled: 1
+    path: Assets/Scenes/Carnage.unity
+    guid: 9c965f9808faaad4aba53260bb86ad19
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

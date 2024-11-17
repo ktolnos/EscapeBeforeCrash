@@ -62,4 +62,14 @@ public class UIManager: MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+    
+    public void NextLevel()
+    {
+        SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % SceneManager.sceneCountInBuildSettings);
+    }
 }

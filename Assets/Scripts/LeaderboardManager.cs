@@ -24,14 +24,29 @@ public class LeaderboardManager: MonoBehaviour
     
     private async void Start()
     {
+        foreach (Transform child in leaderboardPanel)
+        {
+            if (child != null)
+            {
+                Destroy(child.gameObject);
+            }
+        }
         await UnityServices.InitializeAsync();
         if (!AuthenticationService.Instance.IsSignedIn)
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
         }
 
-        var entry = await LeaderboardsService.Instance.AddPlayerScoreAsync(leaderboardId, 1e6);
-        usernameInput.SetTextWithoutNotify(entry.PlayerName.Split('#')[0]);
+        try
+        {
+            var entry = await LeaderboardsService.Instance.AddPlayerScoreAsync(leaderboardId, 1e6);
+            usernameInput.SetTextWithoutNotify(entry.PlayerName.Split('#')[0]);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+            throw;
+        }
 
         usernameInput.characterLimit = 32;
         usernameInput.onEndEdit.AddListener(OnUsernameChanged);
