@@ -45,12 +45,12 @@ public class LeaderboardManager: MonoBehaviour
 
     public async void UpdateScore()
     {
-        await LeaderboardsService.Instance.AddPlayerScoreAsync(_leaderboardId, Time.timeSinceLevelLoad);
+        await LeaderboardsService.Instance.AddPlayerScoreAsync(_leaderboardId, Time.timeSinceLevelLoad / Time.timeScale);
     }
     
     public void OnShowLeaderboard()
     {
-        var playerTime = TimeSpan.FromSeconds(Time.timeSinceLevelLoad);
+        var playerTime = TimeSpan.FromSeconds(Time.timeSinceLevelLoad / Time.timeScale);
         timeText.text = $"{playerTime.Minutes:00}:{playerTime.Seconds:00}:{playerTime.Milliseconds:000}";
         timeText.transform.DOPunchScale(Vector3.one * 0.05f, 4f).SetLoops(-1);
         UpdateLeaderboardData();

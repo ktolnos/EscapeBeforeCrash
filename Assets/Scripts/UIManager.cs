@@ -49,8 +49,10 @@ public class UIManager: MonoBehaviour
         {
             return;
         }
-        var minutes = (int) Time.timeSinceLevelLoad / 60;
-        var seconds = (int) Time.timeSinceLevelLoad % 60;
+
+        var time = Time.timeSinceLevelLoad / Time.timeScale;
+        var minutes = (int) time / 60;
+        var seconds = (int) time % 60;
         clock.text = $"{minutes:00}:{seconds:00}";
         if (Input.GetKeyDown(KeyCode.R))
         {

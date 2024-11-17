@@ -33,6 +33,8 @@ public class CameraController : MonoBehaviour
     {
         Instance = this;
         playerScript = player.GetComponent<Player>();
+        Time.timeScale = 1.5f;
+        Time.fixedDeltaTime = 0.02f / Time.timeScale;
     }
 
     private void Start()

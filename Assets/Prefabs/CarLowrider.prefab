@@ -5018,9 +5018,9 @@ Rigidbody:
   m_GameObject: {fileID: 7552817236936439721}
   serializedVersion: 4
   m_Mass: 1500
-  m_Drag: 0.1
+  m_Drag: 0.01
   m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_CenterOfMass: {x: 0, y: -1, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
@@ -5067,7 +5067,9 @@ MonoBehaviour:
   splineT: 0
   behindCameraSpeedup: 0
   isBehindCamera: 0
-  downforce: 0
+  downforce: 1000
+  FWD: 0
+  RWD: 1
 --- !u!114 &452763369560871262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5390,7 +5392,7 @@ PrefabInstance:
     - target: {fileID: 5950563253713096259, guid: 26deceb892273ff408d0e4bb3f81dc59,
         type: 3}
       propertyPath: m_SuspensionDistance
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5950563253713096259, guid: 26deceb892273ff408d0e4bb3f81dc59,
         type: 3}
