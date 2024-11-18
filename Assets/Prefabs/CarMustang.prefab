@@ -5020,7 +5020,7 @@ Rigidbody:
   m_Mass: 400
   m_Drag: 0.1
   m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: -1, z: 0.3}
+  m_CenterOfMass: {x: 0, y: -1, z: 0.5}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
@@ -5059,7 +5059,7 @@ MonoBehaviour:
   type: 2
   rb: {fileID: 0}
   minSpeed: 20
-  secondsBeforeDestroy: 1
+  secondsBeforeDestroy: 2
   fire: {fileID: 2576123305441321687, guid: ac7bf335cf726284d8c194151b1eaf55, type: 3}
   explosion: {fileID: 7011540988894241787}
   debugSphere: {fileID: 0}

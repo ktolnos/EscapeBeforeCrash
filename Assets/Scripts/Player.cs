@@ -11,6 +11,8 @@ public class Player: MonoBehaviour
     public static Player Instance;
     public float speed;
     public AudioClip lowSpeedSound;
+    public AudioClip dashSound;
+    private AudioSource _audioSource;
     
     public void Awake()
     {
@@ -20,6 +22,7 @@ public class Player: MonoBehaviour
     public void Start()
     {
         car = GetComponentInParent<Car>();
+        _audioSource = GetComponent<AudioSource>();
         car.Sit(this);
     }
     
@@ -53,11 +56,11 @@ public class Player: MonoBehaviour
             car.Highlight(Color.white);
             if (Input.GetMouseButtonDown(0))
             {
+                _audioSource.PlayOneShot(dashSound);
                 this.car.Leave();
                 this.car = car;
                 car.Sit(this);
             }
-            
         }
 
         speed = this.car.rb.linearVelocity.magnitude;
@@ -66,7 +69,7 @@ public class Player: MonoBehaviour
         {
             if (speedText.color != Color.red)
             {
-                GetComponentInParent<AudioSource>().PlayOneShot(lowSpeedSound);
+                _audioSource.PlayOneShot(lowSpeedSound);
             } 
             speedText.color = Color.red;   
         }

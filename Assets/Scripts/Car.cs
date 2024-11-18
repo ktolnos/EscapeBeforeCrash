@@ -188,6 +188,10 @@ public class Car: MonoBehaviour
     
     private void FixedUpdate()
     {
+        if (_destroyCarEnumerator != null)
+        {
+            return;
+        }
         rb.AddForce(Vector3.down * downforce * rb.mass);
     }
 
