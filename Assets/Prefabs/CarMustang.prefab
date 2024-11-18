@@ -5058,7 +5058,7 @@ MonoBehaviour:
   seat: {fileID: 8176135356469453251}
   type: 2
   rb: {fileID: 0}
-  minSpeed: 5
+  minSpeed: 20
   secondsBeforeDestroy: 1
   fire: {fileID: 2576123305441321687, guid: ac7bf335cf726284d8c194151b1eaf55, type: 3}
   explosion: {fileID: 7011540988894241787}
