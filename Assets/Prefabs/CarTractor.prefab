@@ -10002,7 +10002,7 @@ MonoBehaviour:
   seat: {fileID: 8176135356469453251}
   type: 0
   rb: {fileID: 0}
-  minSpeed: 3
+  minSpeed: 20
   secondsBeforeDestroy: 2
   fire: {fileID: 2576123305441321687}
   explosion: {fileID: 8106357030567573039}

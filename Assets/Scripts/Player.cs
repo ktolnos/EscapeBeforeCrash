@@ -10,6 +10,7 @@ public class Player: MonoBehaviour
     public bool gameEnded;
     public static Player Instance;
     public float speed;
+    public AudioClip lowSpeedSound;
     
     public void Awake()
     {
@@ -63,7 +64,11 @@ public class Player: MonoBehaviour
         speedText.text = $"{speed * 5:0} km/h";
         if (speed <= this.car.minSpeed)
         {
-           speedText.color = Color.red;   
+            if (speedText.color != Color.red)
+            {
+                GetComponentInParent<AudioSource>().PlayOneShot(lowSpeedSound);
+            } 
+            speedText.color = Color.red;   
         }
         else
         {

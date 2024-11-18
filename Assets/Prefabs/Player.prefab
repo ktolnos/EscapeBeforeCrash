@@ -161,6 +161,7 @@ MonoBehaviour:
   speedText: {fileID: 0}
   gameEnded: 0
   speed: 0
+  lowSpeedSound: {fileID: 8300000, guid: 5356b911e05f6e14796c1bec2b652381, type: 3}
 --- !u!81 &3854342253045335680
 AudioListener:
   m_ObjectHideFlags: 0
