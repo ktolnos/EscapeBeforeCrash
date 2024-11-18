@@ -162,7 +162,7 @@ MonoBehaviour:
   speedText: {fileID: 0}
   gameEnded: 0
   speed: 0
-  lowSpeedSound: {fileID: 8300000, guid: 5356b911e05f6e14796c1bec2b652381, type: 3}
+  lowSpeedSound: {fileID: 8300000, guid: 08a3146ccdad896448e554f01406d498, type: 3}
   dashSound: {fileID: 8300000, guid: 762344c2ec74b694fadb318121687470, type: 3}
 --- !u!81 &3854342253045335680
 AudioListener:
@@ -328,7 +328,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.304
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
