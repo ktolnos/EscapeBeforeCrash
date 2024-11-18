@@ -6138,6 +6138,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2618291878356723808}
     m_Modifications:
+    - target: {fileID: 4408457932595386881, guid: f19cd0d7c93a92443ba53726c6c051b4,
+        type: 3}
+      propertyPath: torque
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 7528895160324494923, guid: f19cd0d7c93a92443ba53726c6c051b4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6499,7 +6504,7 @@ PrefabInstance:
     - target: {fileID: 4408457932595386881, guid: f19cd0d7c93a92443ba53726c6c051b4,
         type: 3}
       propertyPath: torque
-      value: 1250
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 4408457932595386881, guid: f19cd0d7c93a92443ba53726c6c051b4,
         type: 3}
@@ -6764,6 +6769,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6709079199034639298, guid: 327d87eb9622ff34ba8b5181b82e085a,
+        type: 3}
+      propertyPath: leaderboardId
+      value: Level2
+      objectReference: {fileID: 0}
     - target: {fileID: 7209706960005062060, guid: 327d87eb9622ff34ba8b5181b82e085a,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -6772,6 +6782,11 @@ PrefabInstance:
     - target: {fileID: 7209706960005062060, guid: 327d87eb9622ff34ba8b5181b82e085a,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7209706960005062060, guid: 327d87eb9622ff34ba8b5181b82e085a,
+        type: 3}
+      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8029890688037510191, guid: 327d87eb9622ff34ba8b5181b82e085a,
