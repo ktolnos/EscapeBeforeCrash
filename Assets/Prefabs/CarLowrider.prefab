@@ -5070,7 +5070,7 @@ MonoBehaviour:
   downforce: 30
   FWD: 0
   RWD: 1
-  maxDistanceToCenter: 7
+  maxDistanceToCenter: 14
 --- !u!114 &452763369560871262
 MonoBehaviour:
   m_ObjectHideFlags: 0
