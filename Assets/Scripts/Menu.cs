@@ -8,8 +8,8 @@ public class Menu: MonoBehaviour
     
     public void Start()
     {
-        mainText.DOPunchPosition(Vector3.up*0.1f, 2f).SetEase(Ease.OutElastic).SetLoops(-1);
-        mainText.DOPunchRotation(Vector3.up*0.1f, 2f).SetEase(Ease.OutElastic).SetLoops(-1);
+        mainText.DOPunchPosition(Vector3.up*20f, 2f).SetEase(Ease.OutElastic).SetLoops(-1);
+        mainText.DOPunchRotation(Vector3.up*20f, 3.1f).SetEase(Ease.OutElastic).SetLoops(-1);
     }
     
     public void SelectLevel(string levelName)
