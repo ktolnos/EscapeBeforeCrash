@@ -67,7 +67,7 @@ public class Player: MonoBehaviour
         speedText.text = $"{speed * 5:0} km/h";
         if (speed <= this.car.minSpeed)
         {
-            if (speedText.color != Color.red)
+            if (speedText.color != Color.red && !gameEnded)
             {
                 _audioSource.PlayOneShot(lowSpeedSound);
             } 
